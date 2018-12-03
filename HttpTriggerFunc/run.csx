@@ -15,8 +15,10 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
         dynamic data = await req.Content.ReadAsAsync<object>();
         name = data?.name;
     }
+    else
+    {
+        name = "Vlad";
+    }
 
-    return name == null
-        ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body")
-        : req.CreateResponse(HttpStatusCode.OK, "Hello name=" + name);
+    return req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
 }
